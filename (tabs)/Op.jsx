@@ -1,20 +1,36 @@
-import { StyleSheet, Text, View, Modal,TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, TextInput, Modal,TouchableOpacity} from 'react-native'
 import React,{useState} from 'react'
 
 const Op = () => {
     const [vis,setvis] = useState(false)
-  return (
-    <View>
-            <TouchableOpacity onPress={()=>{setvis(p=>!p)}}>
-        <Text>+dadsdsad+</Text>
-      </TouchableOpacity>
-        <Modal visible={vis} onRequestClose={()=>{setvis(p=>!p)}} animationType="fade" > 
+    const addTog = ()=>{setvis(p=>!p)}
+    const onclick = ()=>{
+        // on click for on going projects action
+    } 
+    return (
+        <View>
+            <TouchableOpacity onPress={addTog}>
+                <Text>+dadsdsad+</Text>
+            </TouchableOpacity>
+            <Modal visible={vis} onRequestClose={addTog} animationType="fade" > 
                 <View>
-                    <Text>'sddsf'</Text>
+                    <TouchableOpacity onPress={addTog}>
+                        <Text>X</Text>
+                    </TouchableOpacity>
+
+                    <Text>Name</Text>
+                    <TextInput/>
+                    <Text>location</Text>
+                    <TextInput/>
+                    <Text>any</Text>
+                    <TextInput/>
+                    <TouchableOpacity>
+                        <Text>add</Text>
+                    </TouchableOpacity>
                 </View>
-        </Modal>
-    </View>
-  )
+            </Modal>
+        </View>
+    )
 }
 
 export default Op

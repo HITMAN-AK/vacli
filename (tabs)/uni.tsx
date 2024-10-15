@@ -1,5 +1,4 @@
 import {View,Text,TouchableOpacity} from "react-native"
-import React from "react"
 export function list(run:any,txt:String,subtxt:String,subtxt2?:String,subtxt3?:String){
     return (
         <TouchableOpacity onPress={run}>
