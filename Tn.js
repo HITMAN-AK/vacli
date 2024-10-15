@@ -1,20 +1,20 @@
 import React from 'react'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import Am from './(tabs)/Am';
 import Op from './(tabs)/Op';
 import Att from './(tabs)/Att';
 import Cp from './(tabs)/Cp';
 import Es from './(tabs)/Es';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 const Tn = () => {
-    const Tab=createMaterialTopTabNavigator();
+    const Dn=createDrawerNavigator();
   return (
-    <Tab.Navigator>
-        <Tab.Screen name='On-going' component={Op}/>
-        <Tab.Screen name='Attendance' component={Att}/>
-        <Tab.Screen name='Completed' component={Cp}/>
-        <Tab.Screen name='Available Material' component={Am}/>
-        <Tab.Screen name='Salary' component={Es}/>
-    </Tab.Navigator>
+    <Dn.Navigator>
+        <Dn.Screen name='On-going' component={Op}/>
+        <Dn.Screen name='Attendance' component={Att}/>
+        <Dn.Screen name='Completed' component={Cp}/>
+        <Dn.Screen name='Available Material' component={Am}/>
+        <Dn.Screen name='Salary' component={Es}/>
+    </Dn.Navigator>
   )
 }
 export default Tn
