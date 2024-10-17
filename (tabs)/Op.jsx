@@ -10,7 +10,7 @@ const Op = () => {
     return (
         <View>
             <TouchableOpacity onPress={addTog}>
-                <Text>+dadsdsad+</Text>
+                <Text>+</Text>
             </TouchableOpacity>
             <Modal visible={vis} onRequestClose={addTog} animationType="fade" > 
                 <View>
