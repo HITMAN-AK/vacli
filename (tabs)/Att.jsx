@@ -1,20 +1,77 @@
 import {StyleSheet,Text,View,TextInput,Modal,TouchableOpacity,TouchableWithoutFeedback,Keyboard,} from "react-native";
 import React, { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Att = () => {
-    const [vis, setvis] = useState(false);
-    const [nam,setnam] = useState("");
-    const [rol,setrol] = useState("");
-    const [sal,setsal] = useState("");
-    const [phone,setphone] = useState("");
-    const [mail,setmail] = useState("");
-    const addTog = () => {
-        setvis((p) => !p);
-    };
-    const onclick = () => {
-        // on click for on Attendance action
-    };
-    return (
+  const [vis, setvis] = useState(false);
+  const submit=async()=>{
+    await axios.post(`${process.env.APP_HOST}/ae`,{
+        role:await AsyncStorage.getItem("role"),
+        pk:await AsyncStorage.getItem("pk"),
+    })
+  }
+  const addTog = () => {
+    setvis((p) => !p);
+  };
+  const onclick = () => {
+    // on click for on Attendance action
+  };
+  return (
+    <View>
+      <Text style={styles.filTit}>Fillters</Text>
+      <View style={styles.filter}>
+        <View style={styles.filFel}>
+          <Text>project</Text>
+          <Dropdown
+            data={[
+              { label: "Item 1", value: "1" },
+              { label: "Item 2", value: "2" },
+              { label: "Item 3", value: "3" },
+              { label: "Item 4", value: "4" },
+            ]}
+            labelField="label"
+            valueField="value"
+            search
+            searchPlaceholder="Search..."
+            onChange={() => {}}
+            style={styles.drop}
+          />
+        </View>
+        <View style={styles.filFel}>
+          <Text>project</Text>
+          <Dropdown
+            data={[
+              { label: "Item 1", value: "1" },
+              { label: "Item 2", value: "2" },
+              { label: "Item 3", value: "3" },
+              { label: "Item 4", value: "4" },
+            ]}
+            labelField="label"
+            valueField="value"
+            search
+            searchPlaceholder="Search..."
+            onChange={() => {}}
+            style={styles.drop}
+          />
+        </View>
+        <View style={styles.filFel}>
+          <Text>project</Text>
+          <Dropdown
+            data={[
+              { label: "Item 1", value: "1" },
+              { label: "Item 2", value: "2" },
+              { label: "Item 3", value: "3" },
+              { label: "Item 4", value: "4" },
+            ]}
+            labelField="label"
+            valueField="value"
+            search
+            searchPlaceholder="Search..."
+            onChange={() => {}}
+            style={styles.drop}
+          />
+        </View>
         <View>
             <Text style={styles.filTit}>Fillters</Text>
             <View style={styles.filter}>
