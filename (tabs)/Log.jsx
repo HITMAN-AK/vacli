@@ -3,20 +3,33 @@ import React, { useEffect, useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Log = ({ navigation }) => {
   const [pk, setpk] = useState(null);
   const [em, setem] = useState("none");
-  const [role,setrole]=useState(null);
+  const [role, setrole] = useState(null);
   const [mess, setmess] = useState("");
   useEffect(() => {
     setpk("");
     setem("none");
   }, [navigation]);
   const log = async () => {
-    await axios.post(`${process.env.APP_HOST}/log`, {
-      pk: pk,
-      role:role
-    });
+    await axios
+      .post(`${process.env.APP_HOST}/log`,{
+        pk: pk,
+        role: role,
+      })
+      .then(async (res) => {
+        if (res.data.status) {
+          await AsyncStorage.setItem("role", JSON.stringify(role));
+          await AsyncStorage.setItem("pk", pk);
+          await AsyncStorage.setItem("acc", JSON.stringify(res.data.acc));
+          navigation.navigate("tab");
+        } else {
+          setmess("INVALID-CREDENTIALS");
+          setem("flex");
+        }
+      });
   };
   return (
     <View style={styles.main}>
@@ -31,8 +44,7 @@ const Log = ({ navigation }) => {
           placeholder="SELECT-ROLE"
           value={role}
           onChange={(text) => {
-            console.log(text.value)
-            setrole(text.value)
+            setrole(text.value);
           }}
           style={styles.drop}
         />
@@ -42,7 +54,7 @@ const Log = ({ navigation }) => {
           placeholderTextColor={"white"}
           value={pk}
           onChangeText={(text) => {
-            setpk(text)
+            setpk(text);
           }}
         ></TextInput>
         <TouchableOpacity style={styles.but} onPress={log}>
@@ -102,8 +114,8 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
   },
-  drop:{
+  drop: {
     borderWidth: 3,
     borderColor: "black",
-  }
+  },
 });

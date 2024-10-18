@@ -10,8 +10,16 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Att = () => {
   const [vis, setvis] = useState(false);
+  const submit=async()=>{
+    await axios.post(`${process.env.APP_HOST}/ae`,{
+        role:await AsyncStorage.getItem("role"),
+        pk:await AsyncStorage.getItem("pk"),
+    })
+  }
   const addTog = () => {
     setvis((p) => !p);
   };
