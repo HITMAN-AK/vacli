@@ -1,53 +1,59 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { TextInput } from 'react-native-gesture-handler';
-import axios from 'axios';
-const Log = ({navigation}) => {
-  const [uname,setuname]=useState(null);
-  const [pass,setpass]=useState(null);
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { TextInput } from "react-native-gesture-handler";
+import { Dropdown } from "react-native-element-dropdown";
+import axios from "axios";
+const Log = ({ navigation }) => {
+  const [pk, setpk] = useState(null);
   const [em, setem] = useState("none");
+  const [role,setrole]=useState(null);
   const [mess, setmess] = useState("");
-  useEffect(()=>{
-    setuname("");
-    setpass("");
+  useEffect(() => {
+    setpk("");
     setem("none");
-  },[navigation])
-  const log=async()=>{
-    await axios.post(`${process.env.APP_HOST}/log`,{
-      
-    })
-  }
+  }, [navigation]);
+  const log = async () => {
+    await axios.post(`${process.env.APP_HOST}/log`, {
+      pk: pk,
+      role:role
+    });
+  };
   return (
-    <View style={styles.main} >
+    <View style={styles.main}>
       <View style={styles.body}>
-        <TextInput
-          placeholder="User Name"
-          style={styles.in}
-          placeholderTextColor={"white"}
-          value={uname}
-          onChangeText={(text) => {
-            setuname(text);
+        <Dropdown
+          data={[
+            { label: "OWNER", value: 0 },
+            { label: "EMPLOYEE", value: 1 },
+          ]}
+          labelField="label"
+          valueField="value"
+          placeholder="SELECT-ROLE"
+          value={role}
+          onChange={(text) => {
+            console.log(text.value)
+            setrole(text.value)
           }}
-        ></TextInput>
+          style={styles.drop}
+        />
         <TextInput
-          placeholder="Password"
-          secureTextEntry
+          placeholder="pass-key"
           style={styles.in}
           placeholderTextColor={"white"}
-          value={pass}
+          value={pk}
           onChangeText={(text) => {
-            setpass(text);
+            setpk(text)
           }}
         ></TextInput>
         <TouchableOpacity style={styles.but} onPress={log}>
           <Text style={styles.bl}>Log In</Text>
         </TouchableOpacity>
-        <Text style={[styles.em,{display:em}]}>{mess}</Text>
+        <Text style={[styles.em, { display: em }]}>{mess}</Text>
       </View>
     </View>
-  )
-}
-export default Log
+  );
+};
+export default Log;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
@@ -66,10 +72,10 @@ const styles = StyleSheet.create({
     marginTop: -40,
   },
   in: {
-    height:30,
+    height: 30,
     backgroundColor: "black",
     color: "white",
-    marginTop: 10,
+    marginTop: 20,
     fontSize: 20,
   },
   but: {
@@ -90,10 +96,14 @@ const styles = StyleSheet.create({
     color: "white",
   },
   em: {
-    marginTop:10,
+    marginTop: 10,
     fontSize: 20,
     fontWeight: "bold",
     color: "red",
     textAlign: "center",
   },
-})
+  drop:{
+    borderWidth: 3,
+    borderColor: "black",
+  }
+});
