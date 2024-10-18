@@ -79,30 +79,40 @@ const Att = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity onPress={addTog}>
-        <Text>+</Text>
+            <View >
+      <TouchableOpacity style={styles.btn} onPress={addTog}>
+        <Text style={styles.btntxt}>+</Text>
       </TouchableOpacity>
+      </View>
       <Modal visible={vis} onRequestClose={addTog} animationType="fade">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity onPress={addTog}>
-              <Text>X</Text>
+          <View style={[{ flex: 1 },styles.fildAdd]}>
+            <View>
+            <TouchableOpacity onPress={addTog} style={styles.btn}>
+              <Text style={styles.btntxt}>X</Text>
             </TouchableOpacity>
-
+            </View>
             <Text>Name</Text>
-            <TextInput />
-            <Text>cat</Text>
+            <TextInput style={styles.field} />
+            <Text>roll</Text>
             <Dropdown
-              data={[{ cat: "as" }]}
+              data={[{ cat: "labour" },{cat:"engineer"},{cat:"mason"},{cat:"electrican"},{cat:"plumber"}]}
               labelField="cat"
               valueField="cat"
               onChange={() => {}}
+            style={styles.field}
             />
             <Text>salary</Text>
-            <TextInput />
-            <TouchableOpacity>
-              <Text>add</Text>
+            <TextInput style={styles.field}/>
+            <Text>phone</Text>
+            <TextInput style={styles.field}/>
+            <Text>mail</Text>
+            <TextInput style={styles.field}/>
+                        <View>
+            <TouchableOpacity style={styles.btn}>
+              <Text style={styles.btntxt}>+</Text>
             </TouchableOpacity>
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -135,5 +145,19 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     margin: 4,
     padding: 2,
-  },
+  },btntxt:{
+        fontSize:20,
+    },field:{
+        borderWidth:2,
+        borderColor:"black",
+    },fildAdd:{
+
+    },btn:{
+        borderWidth:1.5,
+        borderColor:"black",
+        borderRadius:50,
+        width:30,
+        justifyContent:"center",
+        alignItems:"center"
+    }
 });

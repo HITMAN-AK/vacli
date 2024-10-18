@@ -8,8 +8,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="VELX" component={Log} options={{headerTintColor:"white", headerStyle:{backgroundColor:"black"},}}/>       
         <Stack.Screen name="tab" component={Tn} options={{headerShown: false,}}/>
+        <Stack.Screen name="VELX" component={Log} options={{headerTintColor:"white", headerStyle:{backgroundColor:"black"},}}/>       
       </Stack.Navigator>
     </NavigationContainer>
   );
