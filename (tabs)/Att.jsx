@@ -1,16 +1,43 @@
-import {StyleSheet,Text,View,TextInput,Modal,TouchableOpacity,TouchableWithoutFeedback,Keyboard,} from "react-native";
-import React, { useState } from "react";
+import {StyleSheet,Text,View,TextInput,Modal,TouchableOpacity,TouchableWithoutFeedback,Keyboard, FlatList,} from "react-native";
+import React, { useState,useEffect } from "react";
+import {get,post} from "axios"
+import {getItem} from "@react-native-async-storage/async-storage"
 import { Dropdown } from "react-native-element-dropdown";
+import {list} from './uni'
 const Att = () => {
     const [vis, setvis] = useState(false);
-    const [nam,setnam] = useState("");
-    const [rol,setrol] = useState("");
-    const [sal,setsal] = useState("");
+    const [name,setnam] = useState("");
+    const [role,setrol] = useState("");
+    const [salary,setsal] = useState("");
     const [phone,setphone] = useState("");
-    const [mail,setmail] = useState("");
+    const [email,setmail] = useState("");
+    const [data,setdata] = useState([]);
+    useEffect(()=>{setmail('');setphone('');setrol('');setsal('');setnam('')},[vis])
+    useEffect(()=>{
+        get(`${process.env.APP_HOST}e`,
+        // {}
+        ).then(r=>{
+                setdata(r.data)
+            })
+    },[])
     const addTog = () => {
         setvis((p) => !p);
     };
+    const add = ()=>{
+        name || setnam(null)
+        role || setrol(null)
+        salary || setsal(null)
+        phone || setphone(null)
+        email || setmail(null)
+        if (!(name || role || salary || phone || email)) return ;
+        post(`${process.env.APP_HOST}ae`,{name,role,salary,phone,email},
+         //   {Headers:{auth:await getItem()}}
+        ).then(r=>{
+                if (r.status) {
+                    addTog()
+                }
+            })
+    }
     const onclick = () => {
         // on click for on Attendance action
     };
@@ -80,6 +107,9 @@ const Att = () => {
                     <Text style={styles.btntxt}>+</Text>
                 </TouchableOpacity>
             </View>
+
+            <FlatList data={data} renderItem={({itm})=>{list(onclick,itm)}}/>
+
             <Modal visible={vis} onRequestClose={addTog} animationType="fade">
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={[{ flex: 1 },styles.fildAdd]}>
@@ -89,23 +119,24 @@ const Att = () => {
                             </TouchableOpacity>
                         </View>
                         <Text>Name</Text>
-                        <TextInput value={nam} onChangeText={setnam} style={styles.field} />
+                        <TextInput value={name} onChangeText={setnam} style={[styles.field,name ?? styles.fiiMis]} />
                         <Text>roll</Text>
                         <Dropdown
                             data={[{ cat: "labour" },{cat:"engineer"},{cat:"mason"},{cat:"electrican"},{cat:"plumber"}]}
                             labelField="cat"
                             valueField="cat"
+                            value={role}
                             onChange={(v) => {setrol(v.cat)}}
-                            style={styles.field}
+                            style={[styles.field,role ?? styles.fiiMis]}
                         />
                         <Text>salary</Text>
-                        <TextInput value={sal} onChangeText={setsal} style={styles.field}/>
+                        <TextInput value={salary} onChangeText={setsal} style={[styles.field,salary ?? styles.fiiMis]}/>
                         <Text>phone</Text>
-                        <TextInput value={phone} onChangeText={setphone} style={styles.field}/>
+                        <TextInput value={phone} onChangeText={setphone} style={[styles.field,phone ?? styles.fiiMis]}/>
                         <Text>mail</Text>
-                        <TextInput value={mail} onChangeText={setmail} style={styles.field}/>
+                        <TextInput value={email} onChangeText={setmail} style={[styles.field,email ?? styles.fiiMis]}/>
                         <View>
-                            <TouchableOpacity style={styles.btn}>
+                            <TouchableOpacity style={styles.btn} onPress={add}>
                                 <Text style={styles.btntxt}>+</Text>
                             </TouchableOpacity>
                         </View>
@@ -156,5 +187,8 @@ const styles = StyleSheet.create({
         width:30,
         justifyContent:"center",
         alignItems:"center"
+    },fiiMis:{
+        borderWidth:2,
+        borderColor:"red",
     }
 });
