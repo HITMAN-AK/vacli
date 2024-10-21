@@ -4,18 +4,22 @@ import { TextInput } from "react-native-gesture-handler";
 import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 const Log = ({ navigation }) => {
   const [pk, setpk] = useState(null);
   const [em, setem] = useState("none");
   const [role, setrole] = useState(null);
   const [mess, setmess] = useState("");
+  const isf = useIsFocused();
   useEffect(() => {
-    setpk("");
-    setem("none");
-  }, [navigation]);
+    if (isf) {
+      setpk("");
+      setem("none");
+    }
+  }, [isf]);
   const log = async () => {
     await axios
-      .post(`${process.env.APP_HOST}log`,{
+      .post(`${process.env.APP_HOST}log`, {
         pk: pk,
         role: role,
       })
@@ -49,7 +53,7 @@ const Log = ({ navigation }) => {
           style={styles.drop}
         />
         <TextInput
-          placeholder="pass-key"
+          placeholder="enter your id"
           style={styles.in}
           placeholderTextColor={"white"}
           value={pk}
@@ -89,6 +93,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginTop: 20,
     fontSize: 20,
+    textAlign:"center"
   },
   but: {
     marginLeft: "35%",
