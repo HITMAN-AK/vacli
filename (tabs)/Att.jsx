@@ -75,7 +75,6 @@ const Att = () => {
             });
     };
     const onclick = (id) => {
-        console.log(absent)
         if(absent.includes(id)){
             setabsent(p=>{p.splice(p.indexOf(id),1);return p});
             return
