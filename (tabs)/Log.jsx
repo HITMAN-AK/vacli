@@ -15,7 +15,7 @@ const Log = ({ navigation }) => {
   }, [navigation]);
   const log = async () => {
     await axios
-      .post(`${process.env.APP_HOST}/log`,{
+      .post(`${process.env.APP_HOST}log`,{
         pk: pk,
         role: role,
       })

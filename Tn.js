@@ -8,7 +8,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 const Tn = () => {
     const Dn=createDrawerNavigator();
   return (
-    <Dn.Navigator>
+    <Dn.Navigator >
         <Dn.Screen name='On-going' component={Op}/>
         <Dn.Screen name='Attendance' component={Att}/>
         <Dn.Screen name='Completed' component={Cp}/>
