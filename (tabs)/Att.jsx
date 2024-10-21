@@ -82,7 +82,7 @@ const Att = () => {
         setabsent(p=>{p.push(id);return p});
     };
     return (
-        <View>
+        <View style={{flex:1}}>
             <Text style={styles.filTit}>Fillters</Text>
             <View style={styles.filter}>
                 <View style={styles.filFel}>
@@ -147,24 +147,27 @@ const Att = () => {
                     <Text style={styles.btntxt}>+</Text>
                 </TouchableOpacity>
             </View>
-
+            <View style={{flex:1}} >
             <FlatList
                 data={data}
                 renderItem={({item}) => {
                     return <View style={{flex:1,flexDirection:"row"}}> 
                         <View style={{flex:0.7}}>
-                            {list(()=>{}, item.name,item.role,item.phone)} 
+                            {list(()=>{}, item.name,item.role,item.phone,item.email)} 
                         </View>
                         <TouchableOpacity onPress={()=>{onclick(item._id)}} style={{flex:0.3}}>
                             <Text>sdsv</Text>
                         </TouchableOpacity>
                     </View>
                 }}
+                    style={{flex:0.7}}
             />
+            <TouchableOpacity style={styles.submitButton}><Text style={styles.submitButtonText}>submit</Text></TouchableOpacity>
+            </View>
 
             <Modal visible={vis} onRequestClose={addTog} animationType="fade">
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={[{ flex: 1 }, styles.fildAdd]}>
+                    <View style={[styles.modalContainer, styles.fildAdd]}>
                         <View>
                             <TouchableOpacity onPress={addTog} style={styles.btn}>
                                 <Text style={styles.btntxt}>X</Text>
@@ -270,5 +273,20 @@ const styles = StyleSheet.create({
     fiiMis: {
         borderWidth: 2,
         borderColor: "red",
+    },
+    
+    modalContainer: {
+        flex: 1,
+    },
+    submitButton: {
+        backgroundColor: "#00ff00",
+        padding: 10,
+        borderRadius: 5,
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    submitButtonText: {
+        color: '#1a5bcc',
+        fontSize: 18,
     },
 });
