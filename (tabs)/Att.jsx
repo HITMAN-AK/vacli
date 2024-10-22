@@ -76,8 +76,7 @@ const Att = () => {
       });
   };
   const onclick = (id) => {
-   setabsent(p=>
-   p.includes(id)?p.filter(i=>i!=id):[...p,id])
+    setabsent((p) => (p.includes(id) ? p.filter((i) => i != id) : [...p, id]));
   };
   const submit = async () => {
     await axios.post(`${process.env.APP_HOST}at`, absent, {
@@ -150,19 +149,23 @@ const Att = () => {
                 <TouchableOpacity
                   onPress={() => {
                     onclick(item._id);
-                    
                   }}
-                  style={[styles.item2,absent.includes(item._id) && styles.item21 ]}>
-                                    {absent.includes(item._id)?
-                  <Text>illa</Text>:
-                  <Text>iruku</Text>
-                                    }
+                  style={[
+                    styles.item2,
+                    absent.includes(item._id) && styles.item21,
+                  ]}
+                >
+                  {absent.includes(item._id) ? (
+                    <Text>illa</Text>
+                  ) : (
+                    <Text>iruku</Text>
+                  )}
                 </TouchableOpacity>
               </View>
             );
           }}
           style={{ flex: 0.7 }}
-        keyExtractor={(i)=>i._id}
+          keyExtractor={(i) => i._id}
         />
         <TouchableOpacity style={styles.submitButton} onPress={submit}>
           <Text style={styles.submitButtonText}>submit</Text>
@@ -301,17 +304,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: "#00ff00",
-    backgroundColor:"#00ff00",
+    backgroundColor: "#00ff00",
     justifyContent: "center",
     alignItems: "center",
   },
-    item21: {
+  item21: {
     flex: 0.3,
     margin: 3,
     borderRadius: 10,
     borderWidth: 2,
     borderColor: "red",
-    backgroundColor:"red",
+    backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center",
   },
