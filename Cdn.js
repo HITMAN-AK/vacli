@@ -45,7 +45,10 @@ const Cdn = (props) => {
     if (acc !== null) {
       await AsyncStorage.removeItem("acc");
     }
-    navigation.navigate("VELX");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "VELX" }], 
+    });
   };
   return (
     <View style={styles.main}>
