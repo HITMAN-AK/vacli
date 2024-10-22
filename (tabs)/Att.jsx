@@ -35,9 +35,6 @@ const Att = () => {
   }, [vis]);
   useEffect(() => {
     const get = async () => {
-      console.log(await AsyncStorage.getItem("pk"));
-      console.log(await AsyncStorage.getItem("acc"));
-      console.log(await AsyncStorage.getItem("role"));
       axios
         .get(`${process.env.APP_HOST}e`, {
           headers: {
