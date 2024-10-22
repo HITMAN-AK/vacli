@@ -79,17 +79,8 @@ const Att = () => {
       });
   };
   const onclick = (id) => {
-    if (absent.includes(id)) {
-      setabsent((p) => {
-        p.splice(p.indexOf(id), 1);
-        return p;
-      });
-      return;
-    }
-    setabsent((p) => {
-      p.push(id);
-      return p;
-    });
+   setabsent(p=>
+   p.includes(id)?p.filter(i=>i!=id):[...p,id])
   };
   const submit = async () => {
     await axios.post(`${process.env.APP_HOST}at`, absent, {
@@ -106,14 +97,9 @@ const Att = () => {
         <View style={styles.filFel}>
           <Text>project</Text>
           <Dropdown
-            data={[
-              { label: "Item 1", value: "1" },
-              { label: "Item 2", value: "2" },
-              { label: "Item 3", value: "3" },
-              { label: "Item 4", value: "4" },
-            ]}
-            labelField="label"
-            valueField="value"
+            data={data}
+            labelField="name"
+            valueField="name"
             search
             searchPlaceholder="Search..."
             onChange={() => {}}
@@ -123,14 +109,9 @@ const Att = () => {
         <View style={styles.filFel}>
           <Text>project</Text>
           <Dropdown
-            data={[
-              { label: "Item 1", value: "1" },
-              { label: "Item 2", value: "2" },
-              { label: "Item 3", value: "3" },
-              { label: "Item 4", value: "4" },
-            ]}
-            labelField="label"
-            valueField="value"
+            data={data}
+            labelField="role"
+            valueField="role"
             search
             searchPlaceholder="Search..."
             onChange={() => {}}
@@ -140,14 +121,9 @@ const Att = () => {
         <View style={styles.filFel}>
           <Text>project</Text>
           <Dropdown
-            data={[
-              { label: "Item 1", value: "1" },
-              { label: "Item 2", value: "2" },
-              { label: "Item 3", value: "3" },
-              { label: "Item 4", value: "4" },
-            ]}
-            labelField="label"
-            valueField="value"
+            data={data}
+            labelField="_id"
+            valueField="_id"
             search
             searchPlaceholder="Search..."
             onChange={() => {}}
@@ -177,15 +153,19 @@ const Att = () => {
                 <TouchableOpacity
                   onPress={() => {
                     onclick(item._id);
+                    
                   }}
-                  style={styles.item2}
-                >
-                  <Text>sdsv</Text>
+                  style={[styles.item2,absent.includes(item._id) && styles.item21 ]}>
+                                    {absent.includes(item._id)?
+                  <Text>illa</Text>:
+                  <Text>iruku</Text>
+                                    }
                 </TouchableOpacity>
               </View>
             );
           }}
           style={{ flex: 0.7 }}
+        keyExtractor={(i)=>i._id}
         />
         <TouchableOpacity style={styles.submitButton} onPress={submit}>
           <Text style={styles.submitButtonText}>submit</Text>
@@ -323,7 +303,18 @@ const styles = StyleSheet.create({
     margin: 3,
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: "black",
+    borderColor: "#00ff00",
+    backgroundColor:"#00ff00",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+    item21: {
+    flex: 0.3,
+    margin: 3,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "red",
+    backgroundColor:"red",
     justifyContent: "center",
     alignItems: "center",
   },
