@@ -35,9 +35,9 @@ const Att = () => {
   }, [vis]);
   useEffect(() => {
     const get = async () => {
-      console.log(await AsyncStorage.getItem("pk"))
-      console.log(await AsyncStorage.getItem("acc"))
-      console.log(await AsyncStorage.getItem("role"))
+      console.log(await AsyncStorage.getItem("pk"));
+      console.log(await AsyncStorage.getItem("acc"));
+      console.log(await AsyncStorage.getItem("role"));
       axios
         .get(`${process.env.APP_HOST}e`, {
           headers: {
@@ -92,9 +92,8 @@ const Att = () => {
     });
   };
   const submit = async () => {
-    await axios.post(`${process.env.APP_HOST}at`, {
+    await axios.post(`${process.env.APP_HOST}at`, absent, {
       headers: {
-        al: absent,
         role: await AsyncStorage.getItem("role"),
         pk: await AsyncStorage.getItem("pk"),
       },
