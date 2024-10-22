@@ -15,6 +15,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { list } from "./uni";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
+import {staik} from "./cmnStyle"
 const Att = () => {
     const [vis, setvis] = useState(false);
     const [name, setnam] = useState("");
@@ -81,8 +82,11 @@ const Att = () => {
         }
         setabsent(p=>{p.push(id);return p});
     };
+    const submit = ()=>{
+        axios.post(`${process.env.APP_HOST}absent`,absent)
+    }
     return (
-        <View>
+        <View style={staik.root}>
             <Text style={styles.filTit}>Fillters</Text>
             <View style={styles.filter}>
                 <View style={styles.filFel}>
@@ -147,24 +151,27 @@ const Att = () => {
                     <Text style={styles.btntxt}>+</Text>
                 </TouchableOpacity>
             </View>
-
+            <View style={{flex:1}} >
             <FlatList
                 data={data}
                 renderItem={({item}) => {
-                    return <View style={{flex:1,flexDirection:"row"}}> 
-                        <View style={{flex:0.7}}>
-                            {list(()=>{}, item.name,item.role,item.phone)} 
+                    return <View style={ styles.item }> 
+                        <View style={styles.item1}>
+                            {list(()=>{}, item.name,item.role,item.phone,item.email)} 
                         </View>
-                        <TouchableOpacity onPress={()=>{onclick(item._id)}} style={{flex:0.3}}>
+                        <TouchableOpacity onPress={()=>{onclick(item._id)}} style={styles.item2}>
                             <Text>sdsv</Text>
                         </TouchableOpacity>
                     </View>
                 }}
-            />
+                    style={{flex:0.7}}
+            />  
+            <TouchableOpacity style={styles.submitButton} onPress={submit}><Text style={styles.submitButtonText}>submit</Text></TouchableOpacity>
+            </View>
 
             <Modal visible={vis} onRequestClose={addTog} animationType="fade">
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={[{ flex: 1 }, styles.fildAdd]}>
+                    <View style={[styles.modalContainer, styles.fildAdd]}>
                         <View>
                             <TouchableOpacity onPress={addTog} style={styles.btn}>
                                 <Text style={styles.btntxt}>X</Text>
@@ -270,5 +277,31 @@ const styles = StyleSheet.create({
     fiiMis: {
         borderWidth: 2,
         borderColor: "red",
+    },
+    
+    modalContainer: {
+        flex: 1,
+    },
+    submitButton: {
+        backgroundColor: "#00ff00",
+        padding: 10,
+        borderRadius: 5,
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    submitButtonText: {
+        color: '#1a5bcc',
+        fontSize: 18,
+    },
+    item:{flex:1,flexDirection:"row"},
+    item1:{flex:0.7},
+    item2:{
+        flex:0.3,
+        margin:3,
+        borderRadius:5,
+        borderWidth:2,
+        borderColor:"black",
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
