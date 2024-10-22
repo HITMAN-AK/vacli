@@ -31,7 +31,20 @@ const Cdn = (props) => {
   }, []);
   const navigation = useNavigation();
   const rem = async () => {
-    await AsyncStorage.clear();
+    const role = await AsyncStorage.getItem("role");
+    if (role !== null) {
+      await AsyncStorage.removeItem("role");
+    }
+
+    const pk = await AsyncStorage.getItem("pk");
+    if (pk !== null) {
+      await AsyncStorage.removeItem("pk");
+    }
+
+    const acc = await AsyncStorage.getItem("acc");
+    if (acc !== null) {
+      await AsyncStorage.removeItem("acc");
+    }
     navigation.navigate("VELX");
   };
   return (

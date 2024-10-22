@@ -25,6 +25,7 @@ const Log = ({ navigation }) => {
       })
       .then(async (res) => {
         if (res.data.status) {
+          console.log(res.data);
           await AsyncStorage.setItem("role", JSON.stringify(role));
           await AsyncStorage.setItem("pk", pk);
           await AsyncStorage.setItem("acc", JSON.stringify(res.data.acc));
