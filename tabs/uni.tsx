@@ -17,8 +17,8 @@ const lis = StyleSheet.create({
     subTxt:{
         fontSize:15
     },
-    subtxt2:{fontSize:12},
-    subtxt3:{fontSize:10},
+    subtxt2:{fontSize:12,textAlign:"right"},
+    subtxt3:{fontSize:10,textAlign:"right"},
     root:{
         borderColor:'black',
         flex:1,
