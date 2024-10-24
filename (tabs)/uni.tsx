@@ -21,12 +21,10 @@ const lis = StyleSheet.create({
     subtxt3:{fontSize:10},
     root:{
         borderColor:'black',
-        borderWidth:2,
         flex:1,
         flexDirection:'row',
         marginVertical:3,
-        borderRadius:5,
-        padding:3,
+        padding:5,
     },
     main:{
         flex:0.7
