@@ -25,7 +25,7 @@ const Log = ({ navigation }) => {
       })
       .then(async (res) => {
         if (res.data.status) {
-          await AsyncStorage.setItem("role", JSON.stringify(role));
+          await AsyncStorage.setItem("role", res.data.role || JSON.stringify( 0));
           await AsyncStorage.setItem("pk", pk);
           await AsyncStorage.setItem("acc", JSON.stringify(res.data.acc));
           navigation.navigate("tab");

@@ -6,6 +6,7 @@ import {
   Modal,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { addS, staik } from "./cmnStyle";
@@ -33,7 +34,8 @@ const Op = ({navigation}) => {
             auth: await AsyncStorage.getItem("pk"),
           },
         })
-        .then((r) => {
+        .then(async (r) => {
+                console.log(await AsyncStorage.getItem("role"));
           setdata(r.data);
         });
     };
@@ -58,9 +60,11 @@ const Op = ({navigation}) => {
           },
         }
       )
-      .then((r) => {
-        addTog();
-      });
+            .then((r) => {
+                console.log(r.data);
+                addTog();
+                r.data == null && Alert.alert(`Error occur`,`Not Added`) 
+            });
   }
   return (
     <View style={staik.root}>
